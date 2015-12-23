@@ -1,0 +1,11 @@
+fixtures:
+  repositories:
+    logstash:
+      repo: "https://github.com/Adaptavist/puppet-logstash"
+      ref: '0.5.1'
+    stdlib:
+      repo: 'https://github.com/Adaptavist/puppet-stdlib'
+    file_concat:
+      repo: 'https://github.com/Adaptavist/puppet-file_concat'
+  symlinks:
+    logstash_config: "#{source_dir}"
