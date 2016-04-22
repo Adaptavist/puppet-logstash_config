@@ -9,6 +9,7 @@ class logstash_config(
         $init_defaults = {
             'START' => 'true'
             },
+        $pattern_files = {},
     ) {
 
     if defined(Class['elasticsearch']) {
@@ -35,7 +36,14 @@ class logstash_config(
         require       => $dependencies,
     }
 
-      logstash::configfile {'logstash-config':
+    logstash::configfile {'logstash-config':
         source => $config_file,
-      }
+    }
+
+    $pattern_files_defaults = {
+        before  => Service[$logstash::params::service_name],
+        require => Package[$logstash::params::package],
+    }
+    validate_hash($pattern_files)
+    create_resources(logstash::patternfile, $pattern_files, $pattern_files_defaults)
 }
