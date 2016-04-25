@@ -1,5 +1,5 @@
 name 'adaptavist-logstash_config'
-version '0.1.4'
+version '0.1.5'
 source 'git@bitbucket.org:Adaptavist/puppet-logstash_config.git'
 author 'adaptavist'
 summary 'Logstash config Module' 
