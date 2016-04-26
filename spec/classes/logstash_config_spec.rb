@@ -5,7 +5,7 @@ describe 'logstash_config', :type => 'class' do
   context "Should install logstash and adds config file to it" do
     let(:params) { {
         :package_url => package_url,
-        :config_file => '/tmp/logstash.conf'
+        :config_files =>  { 'logstash-config' => { 'source' => '/tmp/logstash.conf' } },
         } }
     let(:facts) {{
       :kernel => 'Linux',
@@ -29,7 +29,7 @@ describe 'logstash_config', :type => 'class' do
   context "Should install logstash and adds pattern file to it" do
     let(:params) { {
         :package_url => package_url,
-        :config_file => '/tmp/logstash.conf',
+        :config_files =>  { 'logstash-config' => { 'source' => '/tmp/logstash.conf' } },
         :pattern_files => {  'pattern_file1' => { 'source' => 'puppet://files/pattern1' }, 'pattern_file2' => { 'source' => 'puppet://files/pattern2' } }
         } }
     let(:facts) {{
