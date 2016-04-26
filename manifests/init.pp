@@ -2,7 +2,7 @@
 #
 class logstash_config(
         $package_url = undef,
-        $config_file,
+        $config_files = {},
         $ensure = 'present',
         $status = 'running',
         $repo_version = '1.4',
@@ -36,14 +36,16 @@ class logstash_config(
         require       => $dependencies,
     }
 
-    logstash::configfile {'logstash-config':
-        source => $config_file,
-    }
-
-    $pattern_files_defaults = {
+    $files_defaults = {
         before  => Service[$logstash::params::service_name],
         require => Package[$logstash::params::package],
     }
+
+    # create any required config files
+    validate_hash($config_files)
+    create_resources(logstash::configfile, $config_files, $files_defaults)
+
+    # create any required pattern files
     validate_hash($pattern_files)
-    create_resources(logstash::patternfile, $pattern_files, $pattern_files_defaults)
+    create_resources(logstash::patternfile, $pattern_files, $files_defaults)
 }
