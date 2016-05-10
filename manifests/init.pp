@@ -10,6 +10,7 @@ class logstash_config(
             'START' => 'true'
             },
         $pattern_files = {},
+        $plugins       = {},
     ) {
 
     if defined(Class['elasticsearch']) {
@@ -18,6 +19,8 @@ class logstash_config(
         $dependencies = []
     }
 
+    create_resources(logstash::plugin, $plugins)
+    
     if ($package_url and $package_url != 'false') {
         $manage_repo = false
         $real_package_url = $package_url
