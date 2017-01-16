@@ -20,7 +20,7 @@ class logstash_config(
     }
 
     create_resources(logstash::plugin, $plugins)
-    
+
     if ($package_url and $package_url != 'false') {
         $manage_repo = false
         $real_package_url = $package_url
